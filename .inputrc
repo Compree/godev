@@ -1,0 +1,5 @@
+set editing-mode vi
+set show-mode-in-prompt on
+set vi-ins-mode-string (ins)
+set vi-cmd-mode-string (cmd)
+'"\C-x\C-r": re-read-init-file'

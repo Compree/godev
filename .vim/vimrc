@@ -1,0 +1,101 @@
+set backupdir=~/.vim/tmp
+set directory=~/.vim/tmp
+set noswapfile
+" ignore case in search
+set ic
+set smartcase
+" set relative line number
+set rnu
+set nocompatible
+set cmdheight=2
+set visualbell
+set autoindent
+set tabstop=4
+set softtabstop=4
+set expandtab
+set showmatch
+set showmode
+set showcmd
+set wildmenu
+set incsearch
+set cursorline
+set hlsearch
+set gdefault
+
+set ruler
+" split for split and term to go to right
+set splitright
+let mapleader = ","
+" stop showing searched highlights after a search
+nnoremap <leader><space> :noh<cr>
+" tab key moves block like % without shifting
+nnoremap <tab> %
+vnoremap <tab> %
+" no need to shift ; to get :
+nnoremap ; :
+au FocusLost * :wa
+" j j to escape from edit
+inoremap jj <ESC>
+" ,w to split vertical and move
+nnoremap <leader>w <C-w>v<C-w>l
+" ,t to open term to right and move
+nnoremap <leader>t :vert  term<cr><C-w>l
+" C-h to move to window left
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" Ack is superior grep
+nnoremap <leader>a :Ack
+
+set syntax=enable
+filetype indent plugin on
+set backspace=indent,eol,start
+set hidden
+
+" default is 50
+set history=50
+set listchars=trail:·,nbsp:·,precedes:«,extends:»,eol:↲,tab:▸\
+
+
+set path+=/root/phixer
+set path+=/root/phixer/lib
+
+let &t_ti.="\<Esc>[1 q"
+let &t_SI.="\<Esc>[5 q"
+let &t_EI.="\<Esc>[1 q"
+let &t_te.="\<Esc>[0 q"
+" Toggle relative line number
+nmap <C-L><C-L> :set invrelativenumber<CR>
+
+set guifont=Lucida_Console:h12:cANSI:qDRAFT
+
+autocmd FileType help noremap <buffer> q :q<cr>
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+" https://dougblack.io/words/a-good-vimrc.html
+" https://stevelosh.com/blog/2010/09/coming-home-to-vim/#using-the-leader

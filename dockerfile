@@ -42,3 +42,10 @@ ssh
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && \
 vim +PlugInstall +qall
+
+RUN cd 
+COPY .vim /root
+COPY .inputrc /root
+COPY .bashrc /root
+
+
