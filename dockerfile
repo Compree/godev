@@ -29,6 +29,8 @@ RUN go get golang.org/x/tools/cmd/godoc                                 && \
     go get github.com/jstemmer/gotags                                   && \
     go get github.com/tools/godep                                       && \
     go get github.com/go-delve/delve/cmd/dlv                            && \
+    go get github.com/mgechev/revive                                    && \
+    go get golang.org/x/tools/cmd/guru                                  && \
     GO111MODULE=on go get golang.org/x/tools/gopls@latest               && \
     mv /go/bin/* /usr/local/go/bin                                      && \
 # cleanup
