@@ -32,7 +32,8 @@ RUN go get golang.org/x/tools/cmd/godoc                                 && \
     go get github.com/mgechev/revive                                    && \
     go get golang.org/x/tools/cmd/guru                                  && \
     go get github.com/davidrjenni/reftools/cmd/fimd/golangci-lint       && \
-
+    go get github.com/davidrjenni/reftools/cmd/fiest                    && \
+    go get github.com/klauspost/asmfmt/cmd/asmfmt                       && \
     GO111MODULE=on go get golang.org/x/tools/gopls@latest               && \
     mv /go/bin/* /usr/local/go/bin                                      && \
 # cleanup
