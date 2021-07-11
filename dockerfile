@@ -44,8 +44,8 @@ tree \
 ssh 
 
 RUN cd 
-COPY .vim/ /root/.vim/
 COPY .inputrc /root
+COPY .vim/ /root/.vim/
 COPY .bashrc /root
 
 RUN git clone --depth 1 https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go

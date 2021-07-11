@@ -95,6 +95,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias lart='ls -lart'
+alias v=vim
 alias h='history'
 alias python='python3'
 alias pip='pip3'
