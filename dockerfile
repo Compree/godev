@@ -58,5 +58,7 @@ RUN vim +GoInstallBinaries +qall
 # RUN vim +PluginInstall  +qall
 # RUN vim +GoInstallBinaries +qall
 
+# need to git clone without ssh first
+COPY .gitconfig /root
 
 

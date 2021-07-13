@@ -1,4 +1,3 @@
-#docker run -it --rm godev bash
-docker run -w /go/src -v ~/.ssh:/root/.ssh/:ro  -v /root/phixer/minimalrpc/:/go/src/ -v /root/phixer/minimalrpc/:/go/bin/ -it --rm godev bash
-
-
+# run.sh <product> e.g. run.sh cube
+product=${1}
+docker run -w /go/src -v ~/.ssh:/root/.ssh/:ro  -v /root/phixer/${product}/:/go/src/ -v /root/phixer/${product}/bin/:/go/bin/ -it --rm godev bash
