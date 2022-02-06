@@ -1,0 +1,54 @@
+= new bashrc
+
+# cat .bashrc
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+shopt -s histappend
+export HISTFILE=~/.history_`hostname`
+export HISTIGNORE="[ ]*:+([a-z]):&"
+export PROMPT_COMMAND="history -a"
+
+# They look the same but argv[0] or whatever is important --version says same too [grrr]
+alias vi=vim
+
+alias df='df -h'
+alias du='du -h'
+alias ll='ls -l'                              # long list
+alias la='ls -a'
+alias l='ls -CF'                              #
+alias lrt='ls -lrt'
+alias lart='ls -lart'
+
+
+alias h='history'
+alias gs='git status'
+alias ga='git add'
+alias gcs='git commit -m"simple"'
+alias gc='git commit'
+alias gpom='git push -u origin main'
+
+alias dc='docker container'
+alias dcls='docker container ls'
+alias dclg='docker container logs'
+alias dcrm='docker container rm'
+alias dcrun='docker container run'
+alias dcexec='docker container exec'
+
+alias di='docker image'
+alias dils='docker image ls'
+alias dirm='docker image rm'
+
+alias dpsa='docker ps -a'
+
+# We are root
+export PS1="\[\033[0;32m\]\[\033[0m\033[0;32m\]\u\[\033[0;36m\] @ \w\[\033[0;32m\]\n$(git branch 2>/dev/null | grep "^*" | colrm 1 2)\[\033[0;32m\]└─\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;32m\]\[\033[0m\] "
+
+# User specific aliases and functions
+set -o vi
