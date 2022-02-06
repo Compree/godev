@@ -1,0 +1,65 @@
+= New build
+
+# cat build.sh
+#!/usr/bin/env bash
+# ./build --image uam --version 0.0.1 --push # build the siguam version v0.0.1 image and push
+# See the python and signal-ops build scripts on which this is based
+
+
+proxy_settings='--build-arg http_proxy=http://proxy-eu.shell.com:8080 --build-arg https_proxy=http://proxy-eu.shell.com:8080'
+repo=ghcr.io/sede-x/signal
+
+export dockerfile=dockerfile
+export image="test"
+export version="0.0.1"
+declare -i push=0
+export push
+
+options=$(getopt -l "file:,image:,push,version:" -o "f:i:pv:" -- "$@")
+
+eval set -- "$options"
+
+while true
+do
+case $1 in
+-f|--file)
+    shift
+    export dockerfile=$1
+    ;;
+-v|--version)
+    shift
+    export version=$1
+    ;;
+-i|--image)
+    shift
+    export image=$1
+    ;;
+-p|--push)
+    let push=1
+    export push
+    ;;
+--)
+    shift
+    break
+    ;;
+esac
+shift
+done
+
+envimage=sig${image}:v${version}
+repoenvimage=${repo}/${envimage}
+
+# Cannot build with the config used to push so move it away
+if [ -e ~/.docker/config.json ]; then
+    mv ~/.docker/config.json ~/.docker/keep-config.json
+fi
+
+DOCKER_BUILDKIT=1 docker build -f ${dockerfile} ${proxy_settings} -t ${envimage} .
+docker tag ${envimage} ${repoenvimage}
+if [ $push -gt 0 ]; then
+    cp ~/.docker/keep-config.json ~/.docker/config.json
+    docker push ${repoenvimage}
+    rm ~/.docker/config.json
+fi
+
+
